@@ -1,4 +1,4 @@
-package factories;
+package oss.factories;
 
 import oss.beans.OssMap;
 import oss.enums.Tile;
