@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import oss.enums.Tile;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class Map {
+public class OssMap {
 
 @JsonProperty
 private Integer height;
@@ -21,7 +21,7 @@ private String title;
 @JsonProperty
 private Integer width;
 
-public Map()
+public OssMap()
 {
 	width = null;
 	height = null;
