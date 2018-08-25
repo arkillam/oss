@@ -1,4 +1,4 @@
 /**
- * For once, I shall strive to have a pure, clean MVC implementation. This package will hold view components only.
+ * Views. Some are reusable, others set in their ways.
  */
 package oss.view;

@@ -1,4 +1,4 @@
 /**
- * Note to self:  write something deep and meaningful here.
+ * Note to self: write something deep and meaningful here.
  */
 package oss.enums;

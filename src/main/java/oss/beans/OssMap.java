@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import oss.enums.Tile;
 
-@JsonIgnoreProperties(ignoreUnknown=true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class OssMap {
 
 @JsonProperty
@@ -21,8 +21,7 @@ private String title;
 @JsonProperty
 private Integer width;
 
-public OssMap()
-{
+public OssMap() {
 	width = null;
 	height = null;
 	tiles = null;
@@ -38,8 +37,7 @@ public Integer getHeight() {
 }
 
 @JsonIgnore
-public Tile getTile(int x, int y)
-{
+public Tile getTile(int x, int y) {
 	return tiles[x][y];
 }
 
@@ -71,7 +69,8 @@ public Integer getWidth() {
 }
 
 /**
- * @param height the height to set
+ * @param height
+ *            the height to set
  *
  * @since x
  */
@@ -80,13 +79,14 @@ public void setHeight(Integer height) {
 }
 
 @JsonIgnore
-public void setTile(int x, int y, Tile t)
-{
-	tiles[x][y] = t;;
+public void setTile(int x, int y, Tile t) {
+	tiles[x][y] = t;
+	;
 }
 
 /**
- * @param tiles the tiles to set
+ * @param tiles
+ *            the tiles to set
  *
  * @since x
  */
@@ -95,7 +95,8 @@ public void setTiles(Tile[][] tiles) {
 }
 
 /**
- * @param title the title to set
+ * @param title
+ *            the title to set
  *
  * @since x
  */
@@ -104,7 +105,8 @@ public void setTitle(String title) {
 }
 
 /**
- * @param width the width to set
+ * @param width
+ *            the width to set
  *
  * @since x
  */

@@ -1,4 +1,4 @@
 /**
- * For once, I shall strive to have a pure, clean MVC implementation. This package will hold model components only.
+ * The brains of the outfit. Business logic goes here.
  */
 package oss.model;
