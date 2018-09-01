@@ -2,11 +2,14 @@ package oss.view;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import oss.enums.Tile;
+import oss.factories.ImageManager;
 import oss.model.TemplateEditorModel;
 
 public class TemplateEditorView extends JPanel {
@@ -24,7 +27,9 @@ public TemplateEditorView() {
 	JPanel tileButtonsPanel = new JPanel(new GridLayout(Tile.values().length, 1));
 	for (Tile tile : Tile.values()) {
 		JButton b = new JButton();
-		b.setText(tile.name());
+		Image image = ImageManager.getImage(tile);
+		b.setIcon(new ImageIcon(image));
+		b.setToolTipText(tile.getDisplayName());
 		b.addActionListener(e -> {
 			// TOOD: set selected tile in model
 		});

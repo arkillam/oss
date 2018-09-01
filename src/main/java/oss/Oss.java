@@ -10,6 +10,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import oss.enums.Tile;
 import oss.factories.MapFactory;
 import oss.model.TemplateEditorModel;
@@ -33,6 +36,8 @@ public class Oss extends JFrame {
 private static final long serialVersionUID = 1L;
 
 private static final String TEMPLATE_EDITOR_VIEW = "TEMPLATE_EDITOR_VIEW";
+
+private static Logger logger = LogManager.getLogger(Oss.class);
 
 public Oss() {
 	super("Old School Shooter (August, 2018)");
@@ -89,8 +94,9 @@ private void setupMenu() {
 public static void main(String[] args) {
 	try {
 		new Oss();
+		logger.debug("application started");
 	} catch (Exception e) {
-		e.printStackTrace();
+		logger.error(e.getMessage(), e);
 		System.exit(1);
 	}
 }
