@@ -40,7 +40,7 @@ private static final String TEMPLATE_EDITOR_VIEW = "TEMPLATE_EDITOR_VIEW";
 private static Logger logger = LogManager.getLogger(Oss.class);
 
 public Oss() {
-	super("Old School Shooter (August, 2018)");
+	super("Old School Shooter (September, 2018)");
 	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	setContentPane(new JPanel());

@@ -18,6 +18,9 @@ private static final long serialVersionUID = 1L;
 
 private TemplateEditorModel model;
 
+/** displays the map */
+private MapView mapView;
+
 public TemplateEditorView() {
 	super();
 
@@ -36,6 +39,12 @@ public TemplateEditorView() {
 		tileButtonsPanel.add(b);
 	}
 	add(tileButtonsPanel, BorderLayout.WEST);
+
+	// map-displaying panel
+	// TODO: add key listener
+	mapView = new MapView();
+	mapView.setOssModel(null);
+	add(mapView, BorderLayout.CENTER);
 }
 
 /**
@@ -55,6 +64,7 @@ public TemplateEditorModel getModel() {
  */
 public void setModel(TemplateEditorModel model) {
 	this.model = model;
+	this.mapView.setOssModel(model);
 }
 
 }

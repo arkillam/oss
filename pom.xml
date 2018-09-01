@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>outlander</groupId>
 	<artifactId>oss</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>201809</version>
 	<packaging>jar</packaging>
 	<name>oss</name>
 
