@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import oss.controllers.TemplateEditorController;
 import oss.enums.Tile;
 import oss.factories.ImageManager;
+import oss.misc.TileButton;
 import oss.model.TemplateEditorModel;
 
 public class TemplateEditorView extends JPanel {
@@ -68,7 +69,7 @@ public TemplateEditorModel getModel() {
 public void setModel(TemplateEditorModel model) {
 	this.model = model;
 	this.mapView.setOssModel(model);
-	TemplateEditorController.getInstance().setOssModel(model);
+	TemplateEditorController.getInstance().setModel(model);
 }
 
 }

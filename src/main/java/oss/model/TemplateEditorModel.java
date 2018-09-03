@@ -76,6 +76,7 @@ public void setSelectedTile(Tile selectedTile) {
 
 public void setTemplateFilename(String templateFilename) {
 	this.templateFilename = templateFilename;
+	logger.debug("templateFilename set to " + templateFilename);
 }
 
 }

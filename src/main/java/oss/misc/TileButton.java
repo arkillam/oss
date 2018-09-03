@@ -1,4 +1,4 @@
-package oss.view;
+package oss.misc;
 
 import javax.swing.JButton;
 
