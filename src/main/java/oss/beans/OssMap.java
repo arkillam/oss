@@ -10,6 +10,12 @@ import oss.enums.Tile;
 public class OssMap {
 
 @JsonProperty
+private String author;
+
+@JsonProperty
+private String description;
+
+@JsonProperty
 private Integer height;
 
 @JsonProperty
@@ -25,6 +31,14 @@ public OssMap() {
 	width = null;
 	height = null;
 	tiles = null;
+}
+
+public String getAuthor() {
+	return author;
+}
+
+public String getDescription() {
+	return description;
 }
 
 /**
@@ -66,6 +80,14 @@ public String getTitle() {
  */
 public Integer getWidth() {
 	return width;
+}
+
+public void setAuthor(String author) {
+	this.author = author;
+}
+
+public void setDescription(String description) {
+	this.description = description;
 }
 
 /**

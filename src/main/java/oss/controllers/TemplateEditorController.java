@@ -17,6 +17,7 @@ import oss.misc.MC;
 import oss.misc.TemplateFileFilter;
 import oss.model.TemplateEditorModel;
 import oss.view.MapView;
+import oss.view.TemplateEditorView;
 
 /**
  * The controller for the template editing process. A singleton class.
@@ -46,6 +47,9 @@ private MapView mapView;
 /** the model we are working with */
 private TemplateEditorModel model;
 
+/** handle to the main template editing panel */
+private TemplateEditorView templateEditorView;
+
 /**
  * A private constructor, to force this to be a singleton.
  */
@@ -58,6 +62,10 @@ public MapView getMapView() {
 
 public TemplateEditorModel getModel() {
 	return model;
+}
+
+public TemplateEditorView getTemplateEditorView() {
+	return templateEditorView;
 }
 
 @Override
@@ -139,6 +147,36 @@ public void saveCurrentTemplate() {
 		return;
 	}
 
+	// make sure map author is valid and up-to-date
+	String author = templateEditorView.getMapAuthor();
+	if ((author == null) || (author.trim().length() < 1)) {
+		JOptionPane.showMessageDialog(Oss.handle,
+				"Cannot save without an author.  Set the author in the template editor (at the top).", "Error",
+				JOptionPane.ERROR_MESSAGE);
+		return;
+	}
+	model.getMap().setAuthor(author);
+
+	// make sure map description is valid and up-to-date
+	String description = templateEditorView.getMapDescription();
+	if ((description == null) || (description.trim().length() < 1)) {
+		JOptionPane.showMessageDialog(Oss.handle,
+				"Cannot save without a description.  Set the description in the template editor (at the bottom).",
+				"Error", JOptionPane.ERROR_MESSAGE);
+		return;
+	}
+	model.getMap().setDescription(description);
+
+	// make sure map title is valid and up-to-date
+	String title = templateEditorView.getMapTitle();
+	if ((title == null) || (title.trim().length() < 1)) {
+		JOptionPane.showMessageDialog(Oss.handle,
+				"Cannot save without a title.  Set the title in the template editor (at the top).", "Error",
+				JOptionPane.ERROR_MESSAGE);
+		return;
+	}
+	model.getMap().setTitle(title);
+
 	boolean rc = HelperFunctions.saveMap(model.getMap(), HelperFunctions.getTemplateDirectory(),
 			model.getTemplateFilename());
 	if (rc) {
@@ -201,6 +239,10 @@ public void setMapView(MapView mapView) {
 
 public void setModel(TemplateEditorModel model) {
 	this.model = model;
+}
+
+public void setTemplateEditorView(TemplateEditorView templateEditorView) {
+	this.templateEditorView = templateEditorView;
 }
 
 }

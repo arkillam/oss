@@ -77,6 +77,7 @@ public Oss() {
 	templateEditorModel = new TemplateEditorModel();
 	templateEditorModel.setMap(MapFactory.createSimpleMap("New Map", 20, 10, Tile.GRASS));
 	TemplateEditorView ossTemplateEditor = new TemplateEditorView();
+	TemplateEditorController.getInstance().setTemplateEditorView(ossTemplateEditor);
 	ossTemplateEditor.setModel(templateEditorModel);
 	getContentPane().add(TEMPLATE_EDITOR_VIEW, ossTemplateEditor);
 
