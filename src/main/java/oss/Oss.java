@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import oss.controllers.TemplateEditorController;
 import oss.enums.Tile;
 import oss.factories.MapFactory;
 import oss.model.TemplateEditorModel;
@@ -34,15 +35,21 @@ import oss.view.TemplateEditorView;
 
 public class Oss extends JFrame {
 
+/** a handle to the application */
+public static Oss handle;
+
 private static Logger logger = LogManager.getLogger(Oss.class);
 
 private static final long serialVersionUID = 1L;
 
 private static final String TEMPLATE_EDITOR_VIEW = "TEMPLATE_EDITOR_VIEW";
 
+/** stores the name of the currently displayed card, because the card layout manager doesn't do this for us */
+private String currentCardName;
+
 public static void main(String[] args) {
 	try {
-		new Oss();
+		handle = new Oss();
 		logger.debug("application started");
 	} catch (Exception e) {
 		logger.error(e.getMessage(), e);
@@ -55,12 +62,6 @@ public static void main(String[] args) {
  * major panel is currently visible
  */
 private JMenuItem miNewTemplate;
-
-/**
- * a handle to this menu item is maintained so that it can be made active or inactive as required, depending on which
- * major panel is currently visible
- */
-private JMenuItem miSaveTemplate;
 
 /** the model used by the template editor */
 private TemplateEditorModel templateEditorModel;
@@ -77,7 +78,6 @@ public Oss() {
 	templateEditorModel.setMap(MapFactory.createSimpleMap("New Map", 20, 10, Tile.GRASS));
 	TemplateEditorView ossTemplateEditor = new TemplateEditorView();
 	ossTemplateEditor.setModel(templateEditorModel);
-	// TODO: add controller
 	getContentPane().add(TEMPLATE_EDITOR_VIEW, ossTemplateEditor);
 
 	setupMenu();
@@ -112,22 +112,33 @@ private void setupMenu() {
 	miNewTemplate = new JMenuItem("New Template");
 	miNewTemplate.setEnabled(false);
 	miNewTemplate.addActionListener(e -> {
-		// TODO: implement this (current code is wrong)
 		((CardLayout) getContentPane().getLayout()).show(getContentPane(), TEMPLATE_EDITOR_VIEW);
 		revalidate();
+		TemplateEditorController.getInstance().newTemplate();
 	});
 	fileMenu.add(miNewTemplate);
 
-	miSaveTemplate = new JMenuItem("Save Template");
-	miSaveTemplate.setEnabled(false);
-	miSaveTemplate.addActionListener(e -> {
-		if (templateEditorModel.getMap() != null) {
-			JOptionPane.showMessageDialog(this, "No template to save!", "Error", JOptionPane.ERROR_MESSAGE);
-			return;
-		}
-		// TODO: save template
+	fileMenu.addSeparator();
+
+	JMenuItem miSave = new JMenuItem("Save");
+	miSave.addActionListener(e -> {
+		if (TEMPLATE_EDITOR_VIEW.equals(currentCardName))
+			TemplateEditorController.getInstance().saveCurrentTemplate();
+		else
+			JOptionPane.showMessageDialog(this, "Nothing to save on this screen", "Sorry",
+					JOptionPane.INFORMATION_MESSAGE);
 	});
-	fileMenu.add(miSaveTemplate);
+	fileMenu.add(miSave);
+
+	JMenuItem miSaveAs = new JMenuItem("Save As");
+	miSaveAs.addActionListener(e -> {
+		if (TEMPLATE_EDITOR_VIEW.equals(currentCardName))
+			TemplateEditorController.getInstance().saveCurrentTemplateAs();
+		else
+			JOptionPane.showMessageDialog(this, "Nothing to save on this screen", "Sorry",
+					JOptionPane.INFORMATION_MESSAGE);
+	});
+	fileMenu.add(miSaveAs);
 
 	fileMenu.addSeparator();
 
@@ -144,8 +155,9 @@ private void setupMenu() {
 	JMenuItem miViewTemplateEditor = new JMenuItem("Template Editor");
 	miViewTemplateEditor.addActionListener(e -> {
 		((CardLayout) getContentPane().getLayout()).show(getContentPane(), TEMPLATE_EDITOR_VIEW);
+		currentCardName = TEMPLATE_EDITOR_VIEW;
 		miNewTemplate.setEnabled(true);
-		miSaveTemplate.setEnabled(true);
+		miSave.setEnabled(true);
 		revalidate();
 	});
 	viewMenu.add(miViewTemplateEditor);

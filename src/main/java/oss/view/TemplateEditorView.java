@@ -21,9 +21,6 @@ private TemplateEditorModel model;
 /** displays the map */
 private MapView mapView;
 
-/** handles keyboard input from the mapView */
-private TemplateEditorController templateEditorController;
-
 public TemplateEditorView() {
 	super();
 
@@ -48,9 +45,8 @@ public TemplateEditorView() {
 	// map-displaying panel
 	mapView = new MapView();
 	mapView.setOssModel(null);
-	templateEditorController = new TemplateEditorController();
-	templateEditorController.setMapView(mapView);
-	mapView.addKeyListener(templateEditorController);
+	TemplateEditorController.getInstance().setMapView(mapView);
+	mapView.addKeyListener(TemplateEditorController.getInstance());
 	add(mapView, BorderLayout.CENTER);
 }
 
@@ -72,7 +68,7 @@ public TemplateEditorModel getModel() {
 public void setModel(TemplateEditorModel model) {
 	this.model = model;
 	this.mapView.setOssModel(model);
-	this.templateEditorController.setOssModel(model);
+	TemplateEditorController.getInstance().setOssModel(model);
 }
 
 }

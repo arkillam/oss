@@ -28,6 +28,9 @@ private OssMap map;
 /** the selected tile to set in squares */
 private Tile selectedTile;
 
+/** the current filename of the template (used by "save" to avoid repeatedly asking for the filename) */
+private String templateFilename;
+
 @Override
 public int[] getCursor() {
 	return cursor;
@@ -42,6 +45,10 @@ public OssMap getMap() {
 
 public Tile getSelectedTile() {
 	return selectedTile;
+}
+
+public String getTemplateFilename() {
+	return templateFilename;
 }
 
 @Override
@@ -60,10 +67,15 @@ public void setCursor(int[] cursor) {
  */
 public void setMap(OssMap map) {
 	this.map = map;
+	this.templateFilename = null;
 }
 
 public void setSelectedTile(Tile selectedTile) {
 	this.selectedTile = selectedTile;
+}
+
+public void setTemplateFilename(String templateFilename) {
+	this.templateFilename = templateFilename;
 }
 
 }
