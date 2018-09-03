@@ -5,9 +5,9 @@ import java.awt.GridLayout;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import oss.controllers.TemplateEditorController;
 import oss.enums.Tile;
 import oss.factories.ImageManager;
 import oss.model.TemplateEditorModel;
@@ -21,6 +21,9 @@ private TemplateEditorModel model;
 /** displays the map */
 private MapView mapView;
 
+/** handles keyboard input from the mapView */
+private TemplateEditorController templateEditorController;
+
 public TemplateEditorView() {
 	super();
 
@@ -29,21 +32,25 @@ public TemplateEditorView() {
 	// tile-selecting buttons go on the left
 	JPanel tileButtonsPanel = new JPanel(new GridLayout(Tile.values().length, 1));
 	for (Tile tile : Tile.values()) {
-		JButton b = new JButton();
+		TileButton b = new TileButton();
+		b.setTile(tile);
 		Image image = ImageManager.getImage(tile);
 		b.setIcon(new ImageIcon(image));
 		b.setToolTipText(tile.getDisplayName());
 		b.addActionListener(e -> {
-			// TOOD: set selected tile in model
+			model.setSelectedTile(b.getTile());
+			mapView.requestFocusInWindow();
 		});
 		tileButtonsPanel.add(b);
 	}
 	add(tileButtonsPanel, BorderLayout.WEST);
 
 	// map-displaying panel
-	// TODO: add key listener
 	mapView = new MapView();
 	mapView.setOssModel(null);
+	templateEditorController = new TemplateEditorController();
+	templateEditorController.setMapView(mapView);
+	mapView.addKeyListener(templateEditorController);
 	add(mapView, BorderLayout.CENTER);
 }
 
@@ -65,6 +72,7 @@ public TemplateEditorModel getModel() {
 public void setModel(TemplateEditorModel model) {
 	this.model = model;
 	this.mapView.setOssModel(model);
+	this.templateEditorController.setOssModel(model);
 }
 
 }

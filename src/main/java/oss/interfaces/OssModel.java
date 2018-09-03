@@ -14,8 +14,19 @@ import oss.beans.OssMap;
 public interface OssModel {
 
 /**
+ * @return the cursor's x/y coordinates ([x,y])
+ */
+public int[] getCursor();
+
+/**
  * @return the model's current map
  */
 public OssMap getMap();
+
+/**
+ * @param the
+ *            cursor's x/y coordinates ([x,y])
+ */
+public void setCursor(int[] cursor);
 
 }

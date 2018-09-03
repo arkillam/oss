@@ -1,6 +1,10 @@
 package oss.model;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import oss.beans.OssMap;
+import oss.enums.Tile;
 import oss.interfaces.OssModel;
 
 /**
@@ -14,8 +18,20 @@ import oss.interfaces.OssModel;
 
 public class TemplateEditorModel implements OssModel {
 
+private static Logger logger = LogManager.getLogger(TemplateEditorModel.class);
+
+private int[] cursor = new int[] { 0, 0 };
+
 /** the current map we are working on */
 private OssMap map;
+
+/** the selected tile to set in squares */
+private Tile selectedTile;
+
+@Override
+public int[] getCursor() {
+	return cursor;
+}
 
 /**
  * @return the current map we are working on
@@ -24,12 +40,30 @@ public OssMap getMap() {
 	return map;
 }
 
+public Tile getSelectedTile() {
+	return selectedTile;
+}
+
+@Override
+public void setCursor(int[] cursor) {
+	if ((cursor != null) && (cursor.length == 2)) {
+		this.cursor[0] = cursor[0];
+		this.cursor[1] = cursor[1];
+	} else {
+		logger.error("ignoring bad cursor:  " + cursor);
+	}
+}
+
 /**
  * @param map
  *            a map we are going to work on
  */
 public void setMap(OssMap map) {
 	this.map = map;
+}
+
+public void setSelectedTile(Tile selectedTile) {
+	this.selectedTile = selectedTile;
 }
 
 }

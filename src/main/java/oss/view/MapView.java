@@ -25,8 +25,16 @@ private Graphics2D bufferedGraphics2D;
 /** used for double-buffering the display */
 private BufferedImage bufferedImage;
 
+/** the colour of the cursor (currently transparent white) */
+private Color cursorColour = new Color(255, 255, 255, 100);
+
 /** contains the map we are displaying */
 private OssModel ossModel;
+
+public MapView() {
+	super();
+	setFocusable(true);
+}
 
 /**
  * @return the ossModel
@@ -56,6 +64,11 @@ protected void paintComponent(Graphics g) {
 				bufferedGraphics2D.drawImage(image, x * ImageManager.SQUARE_SIZE, y * ImageManager.SQUARE_SIZE, this);
 			}
 		}
+
+		// draw the cursor
+		bufferedGraphics2D.setColor(cursorColour);
+		bufferedGraphics2D.fillRect(ossModel.getCursor()[0] * ImageManager.SQUARE_SIZE,
+				ossModel.getCursor()[1] * ImageManager.SQUARE_SIZE, ImageManager.SQUARE_SIZE, ImageManager.SQUARE_SIZE);
 	}
 
 	g.drawImage(bufferedImage, 0, 0, this);
