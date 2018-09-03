@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import org.apache.logging.log4j.LogManager;
@@ -33,11 +34,36 @@ import oss.view.TemplateEditorView;
 
 public class Oss extends JFrame {
 
+private static Logger logger = LogManager.getLogger(Oss.class);
+
 private static final long serialVersionUID = 1L;
 
 private static final String TEMPLATE_EDITOR_VIEW = "TEMPLATE_EDITOR_VIEW";
 
-private static Logger logger = LogManager.getLogger(Oss.class);
+public static void main(String[] args) {
+	try {
+		new Oss();
+		logger.debug("application started");
+	} catch (Exception e) {
+		logger.error(e.getMessage(), e);
+		System.exit(1);
+	}
+}
+
+/**
+ * a handle to this menu item is maintained so that it can be made active or inactive as required, depending on which
+ * major panel is currently visible
+ */
+private JMenuItem miNewTemplate;
+
+/**
+ * a handle to this menu item is maintained so that it can be made active or inactive as required, depending on which
+ * major panel is currently visible
+ */
+private JMenuItem miSaveTemplate;
+
+/** the model used by the template editor */
+private TemplateEditorModel templateEditorModel;
 
 public Oss() {
 	super("Old School Shooter (September, 2018)");
@@ -47,7 +73,7 @@ public Oss() {
 	getContentPane().setLayout(new CardLayout());
 
 	// set up template editor
-	TemplateEditorModel templateEditorModel = new TemplateEditorModel();
+	templateEditorModel = new TemplateEditorModel();
 	templateEditorModel.setMap(MapFactory.createSimpleMap("New Map", 20, 10, Tile.GRASS));
 	TemplateEditorView ossTemplateEditor = new TemplateEditorView();
 	ossTemplateEditor.setModel(templateEditorModel);
@@ -63,6 +89,14 @@ public Oss() {
 	setVisible(true);
 }
 
+public TemplateEditorModel getTemplateEditorModel() {
+	return templateEditorModel;
+}
+
+public void setTemplateEditorModel(TemplateEditorModel templateEditorModel) {
+	this.templateEditorModel = templateEditorModel;
+}
+
 /**
  * Creates the menu bar, and all of its content.
  */
@@ -75,12 +109,25 @@ private void setupMenu() {
 	fileMenu.setMnemonic(Character.getNumericValue('f'));
 	jMenuBar.add(fileMenu);
 
-	JMenuItem miNewTemplate = new JMenuItem("New Template");
+	miNewTemplate = new JMenuItem("New Template");
+	miNewTemplate.setEnabled(false);
 	miNewTemplate.addActionListener(e -> {
+		// TODO: implement this (current code is wrong)
 		((CardLayout) getContentPane().getLayout()).show(getContentPane(), TEMPLATE_EDITOR_VIEW);
 		revalidate();
 	});
 	fileMenu.add(miNewTemplate);
+
+	miSaveTemplate = new JMenuItem("Save Template");
+	miSaveTemplate.setEnabled(false);
+	miSaveTemplate.addActionListener(e -> {
+		if (templateEditorModel.getMap() != null) {
+			JOptionPane.showMessageDialog(this, "No template to save!", "Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		// TODO: save template
+	});
+	fileMenu.add(miSaveTemplate);
 
 	fileMenu.addSeparator();
 
@@ -88,17 +135,22 @@ private void setupMenu() {
 	miExit.addActionListener(e -> System.exit(1));
 	fileMenu.add(miExit);
 
-	setJMenuBar(jMenuBar);
-}
+	// view menu
 
-public static void main(String[] args) {
-	try {
-		new Oss();
-		logger.debug("application started");
-	} catch (Exception e) {
-		logger.error(e.getMessage(), e);
-		System.exit(1);
-	}
+	JMenu viewMenu = new JMenu("View");
+	fileMenu.setMnemonic(Character.getNumericValue('v'));
+	jMenuBar.add(viewMenu);
+
+	JMenuItem miViewTemplateEditor = new JMenuItem("Template Editor");
+	miViewTemplateEditor.addActionListener(e -> {
+		((CardLayout) getContentPane().getLayout()).show(getContentPane(), TEMPLATE_EDITOR_VIEW);
+		miNewTemplate.setEnabled(true);
+		miSaveTemplate.setEnabled(true);
+		revalidate();
+	});
+	viewMenu.add(miViewTemplateEditor);
+
+	setJMenuBar(jMenuBar);
 }
 
 }
