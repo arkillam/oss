@@ -1,0 +1,15 @@
+Constant,Name,Classification,Short Range,Medium Range,Long Range,Load,Shots,Penetration,Short Modifier,Long Modifier,Unready after firing,Unready after emptying
+KNIFE,Knife,HANDARM,1,2,3,0,1,0,2,-4,0,0
+DERRINGER,Derringer,SIDEARM,1,3,6,1,2,0,2,-3,1,1
+LSA_PISTOL,LSA Pistol,SIDEARM,1,3,6,6,1,2,2,-3,1,1
+MSA_PISTOL,MSA Pistol,SIDEARM,1,3,7,6,1,2,2,-3,1,1
+HSA_PISTOL,HSA Pistol,SIDEARM,2,4,8,6,1,3,2,-3,1,1
+LDA_PISTOL,LDA Pistol,SIDEARM,1,2,5,6,1,1,2,-3,0,1
+MDA_PISTOL,MDA Pistol,SIDEARM,1,3,6,6,1,1,2,-3,0,1
+HDA_PISTOL,HDA Pistol,SIDEARM,1,3,7,6,1,2,2,-3,0,1
+SHOTGUN,Shotgun,LONGARM,2,4,8,2,3,3,3,-5,0,1
+SO_SHOTGUN,Sawed Off Shotgun,LONGARM,1,2,4,2,5,3,5,-7,0,1
+BREECHLOADER,Breechloader,LONGARM,7,15,30,1,1,8,1,-1,1,1
+RIFLE,Rifle,LONGARM,5,10,20,16,1,6,1,-1,1,1
+REPEATER,Repeater,LONGARM,3,6,12,12,1,4,1,-1,0,0
+CARBINE,Carbine,LONGARM,6,12,25,1,1,7,1,-1,0,0
